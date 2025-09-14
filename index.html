@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Railway Manuals Dashboard</title>
+
+  <!-- App Icons -->
+  <link rel="icon" href="manuals.png" type="image/png">
+  <link rel="apple-touch-icon" href="manuals.png">
+
+  <!-- Theme & PWA -->
+  <meta name="theme-color" content="#2C3E50">
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f0f2f5, #e8ebef);
+      margin: 0;
+      padding: 0;
+      color: #2c3e50;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2c3e50, #1a252f);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.6em;
+      font-weight: 700;
+    }
+
+    .search-bar {
+      max-width: 600px;
+      margin: -25px auto 40px auto;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 14px 20px 14px 45px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+      box-shadow: 0 4px 16px rgba(44,62,80,0.3);
+    }
+
+    .search-bar::before {
+      content: "🔍";
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      opacity: 0.6;
+    }
+
+    .dashboard {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .manual {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .manual:hover {
+      transform: translateY(-6px);
+      border-color: #2c3e50;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+    }
+
+    .manual-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      color: white;
+      font-weight: 600;
+      font-size: 15px;
+      min-width: 120px;
+      text-align: center;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .btn:hover {
+      transform: scale(1.07);
+    }
+
+    .open-btn {
+      background: linear-gradient(135deg, #34495e, #2c3e50);
+    }
+    .open-btn:hover {
+      background: linear-gradient(135deg, #2c3e50, #1a252f);
+    }
+
+    .download-btn {
+      background: linear-gradient(135deg, #27ae60, #1e8449);
+    }
+    .download-btn:hover {
+      background: linear-gradient(135deg, #1e8449, #145a32);
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>
+      <span style="color:#f1c40f;">Railway Manuals</span><br>
+      <span style="color:#2ecc71;"></span>
+    </h1>
+  </header>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input type="text" id="searchInput" class="search-input" placeholder="Search manuals...">
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard" id="manualList">
+    <!-- Your manuals unchanged -->
+    <!-- ... -->
+  </div>
+
+  <!-- Search Script -->
+  <script>
+    document.getElementById("searchInput").addEventListener("keyup", function() {
+      let filter = this.value.toLowerCase();
+      let manuals = document.querySelectorAll(".manual");
+
+      manuals.forEach(manual => {
+        let title = manual.querySelector(".manual-title").innerText.toLowerCase();
+        manual.style.display = title.includes(filter) ? "" : "none";
+      });
+    });
+
+    // Register Service Worker
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js")
+        .then(() => console.log("✅ Service Worker registered"))
+        .catch(err => console.log("❌ SW registration failed:", err));
+    }
+  </script>
+</body>
+</html>
+
+
+  <!-- Dashboard -->
+  <div class="dashboard" id="manualList">
+    <!-- Example Manual -->
+    <div class="manual">
+      <div class="manual-title">G&SR(SCR)</div>
+      <div class="btn-container">
+        <a href="https://drive.google.com/file/d/1HsPuwbAMHsFSz06K7p8VxO6XgmvZXYDQ/preview" target="_blank" class="btn open-btn">📖 Open</a>
+        <a href="https://drive.google.com/uc?export=download&id=1HsPuwbAMHsFSz06K7p8VxO6XgmvZXYDQ" class="btn download-btn">⬇️ Download</a>
+      </div>
+    </div>
+    <div class="manual">
+      <div class="manual-title">G&SR Amendment Slips</div>
+      <div class="btn-container">
+        <a href="https://drive.google.com/file/d/1_t9w3dMbsX-himFw40YirqT7gpVlBH53/preview" target="_blank" class="btn open-btn">📖 Open</a>
+        <a href="https://drive.google.com/uc?export=download&id=1_t9w3dMbsX-himFw40YirqT7gpVlBH53" class="btn download-btn">⬇️ Download</a>
+      </div>
+    </div>
+<div class="manual">
+      <div class="manual-title">G&SR Replacement pages</div>
+      <div class="btn-container">
+        <a href="https://drive.google.com/file/d/1-qoA_UIvNpIWWoOx_FNCAYZCYE-_Fw_X/preview" target="_blank" class="btn open-btn">📖 Open</a>
+        <a href="https://drive.google.com/uc?export=download&id=1-qoA_UIvNpIWWoOx_FNCAYZCYE-_Fw_X" class="btn download-btn">⬇️ Download</a>
+      </div>
+    </div>
+<div class="manual">
+      <div class="manual-title">G&SR Authorities</div>
+      <div class="btn-container">
+        <a href="https://drive.google.com/file/d/19-2OJROeDbrEvgXDr-S-dcWq20I2O8Xc/preview" target="_blank" class="btn open-btn">📖 Open</a>
+        <a href="https://drive.google.com/uc?export=download&id=19-2OJROeDbrEvgXDr-S-dcWq20I2O8Xc" class="btn download-btn">⬇️ Download</a>
+      </div>
+    </div>
+    <div class="manual">
+      <div class="manual-title">Accident Manual</div>
+      <div class="btn-container">
+        <a href="https://drive.google.com/file/d/1gL6DreGQlZVVFdHwsFGy5sOIDm2-DQcT/preview" target="_blank" class="btn open-btn">📖 Open</a>
+        <a href="https://drive.google.com/uc?export=download&id=1gL6DreGQlZVVFdHwsFGy5sOIDm2-DQcT" class="btn download-btn">⬇️ Download</a>
+      </div>
+    </div>
+
+    <div class="manual">
+      <div class="manual-title">Operating Manual</div>
+      <div class="btn-container">
+        <a href="https://drive.google.com/file/d/19412sPzIepI8BhbfQpMBuWUrrSw2bcfK/preview" target="_blank" class="btn open-btn">📖 Open</a>
+        <a href="https://drive.google.com/uc?export=download&id=19412sPzIepI8BhbfQpMBuWUrrSw2bcfK" class="btn download-btn">⬇️ Download</a>
+      </div>
+    </div>
+
+    <div class="manual">
+      <div class="manual-title">Block Working Manual</div>
+      <div class="btn-container">
+        <a href="https://drive.google.com/file/d/1un862q_QKJn8S4vZTG70fyf9pvckkaKO/preview" target="_blank" class="btn open-btn">📖 Open</a>
+        <a href="https://drive.google.com/uc?export=download&id=1un862q_QKJn8S4vZTG70fyf9pvckkaKO" class="btn download-btn">⬇️ Download</a>
+      </div>
+    </div>
+<div class="manual">
+      <div class="manual-title">Working Time Table-SC</div>
+      <div class="btn-container">
+        <a href="https://drive.google.com/file/d/1rLr3v15CClEhF50SECd9xgqW4Lwa1bOL/preview" target="_blank" class="btn open-btn">📖 Open</a>
+        <a href="https://drive.google.com/uc?export=download&id=1rLr3v15CClEhF50SECd9xgqW4Lwa1bOL" class="btn download-btn">⬇️ Download</a>
+      </div>
+    </div>
+<div class="manual">
+      <div class="manual-title">Working Time Table-HYB</div>
+      <div class="btn-container">
+        <a href="https://drive.google.com/file/d/1rIT9F_6mpy82t7koNPeQlDInkCSQd0Rz/preview" target="_blank" class="btn open-btn">📖 Open</a>
+        <a href="https://drive.google.com/uc?export=download&id=1rIT9F_6mpy82t7koNPeQlDInkCSQd0Rz" class="btn download-btn">⬇️ Download</a>
+      </div>
+    </div>
+<div class="manual">
+      <div class="manual-title">Working Time Table-BZA</div>
+      <div class="btn-container">
+        <a href="https://drive.google.com/file/d/1JI5DkIltStw38PWmwSUtEjlBBSEqza2R/preview" target="_blank" class="btn open-btn">📖 Open</a>
+        <a href="https://drive.google.com/uc?export=download&id=1JI5DkIltStw38PWmwSUtEjlBBSEqza2R" class="btn download-btn">⬇️ Download</a>
+      </div>
+    </div>
+<div class="manual">
+      <div class="manual-title">Working Time Table-GTL</div>
+      <div class="btn-container">
+        <a href="https://drive.google.com/file/d/16cWolhWOigv8tdIy9sUF0liJ2eaUQ5gd/preview" target="_blank" class="btn open-btn">📖 Open</a>
+        <a href="https://drive.google.com/uc?export=download&id=16cWolhWOigv8tdIy9sUF0liJ2eaUQ5gd" class="btn download-btn">⬇️ Download</a>
+      </div>
+    </div>
+<div class="manual">
+      <div class="manual-title">Working Time Table-GNT</div>
+      <div class="btn-container">
+        <a href="https://drive.google.com/file/d/1Km-7-9VBxCVfxYpqk1Iaqg6Lx5fPJv-w/preview" target="_blank" class="btn open-btn">📖 Open</a>
+        <a href="https://drive.google.com/uc?export=download&id=1Km-7-9VBxCVfxYpqk1Iaqg6Lx5fPJv-w" class="btn download-btn">⬇️ Download</a>
+      </div>
+    </div>
+<div class="manual">
+      <div class="manual-title">Working Time Table-NED</div>
+      <div class="btn-container">
+        <a href="https://drive.google.com/file/d/1W2XBTzaabgrHIdRp31ddg1D9grCYxL6s/preview" target="_blank" class="btn open-btn">📖 Open</a>
+        <a href="https://drive.google.com/uc?export=download&id=1W2XBTzaabgrHIdRp31ddg1D9grCYxL6s" class="btn download-btn">⬇️ Download</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Search Script -->
+  <script>
+    document.getElementById("searchInput").addEventListener("keyup", function() {
+      let filter = this.value.toLowerCase();
+      let manuals = document.querySelectorAll(".manual");
+
+      manuals.forEach(manual => {
+        let title = manual.querySelector(".manual-title").innerText.toLowerCase();
+        manual.style.display = title.includes(filter) ? "" : "none";
+      });
+    });
+
+    // Register Service Worker
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js")
+        .then(() => console.log("✅ Service Worker registered"))
+        .catch(err => console.log("❌ SW registration failed:", err));
+    }
+  </script>
+</body>
+</html>
+
